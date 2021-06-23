@@ -1,20 +1,31 @@
-import React from "react";
+import React , {useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useSelector } from "react-redux";
+
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "./icon.png";
+
 import "./nav.css";
 
 function NavHead() {
   const dispatch = useDispatch();
   
+  const location = useLocation();
+  
+  const [userData, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
-  const userData = useSelector((state) => state.authData);
+  
+  useEffect(() => {
+      setUser(JSON.parse(localStorage.getItem("profile")))
+    
+  },[location])
+
   const logoutHandler = () => {
     dispatch({type : 'LOGOUT'});
+    setUser(null);
+
     
     
     
@@ -43,10 +54,16 @@ function NavHead() {
         <Nav.Link>
           <Link to="/">Lab</Link>
         </Nav.Link>
-        {userData.authData !== null ? (
+        {userData ? (
+          <>
+          <Nav.Link>
+            Hello {userData.result.name}
+          </Nav.Link>
+          
           <Nav.Link onClick = {logoutHandler}>
               Logout
             </Nav.Link>
+            </>
         ) : (
           <NavDropdown title="Sign-in" id="collasible-nav-dropdown">
             <NavDropdown.Item>
