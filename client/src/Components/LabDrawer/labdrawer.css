@@ -1,0 +1,17 @@
+.d-container {
+    width: 10vw;
+    
+}
+
+.tool-op {
+    margin-bottom: 10px; 
+}
+
+svg.MuiSvgIcon-root.MuiSvgIcon-fontSizeLarge {
+    font-size: xxx-large;
+}
+
+.new-line{
+    white-space: pre-line;
+}
+

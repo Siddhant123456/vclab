@@ -1,0 +1,37 @@
+.room-space {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+
+}
+
+.room-corner {
+    flex: 1;
+    margin-right: auto; 
+}
+
+.room-center {
+    height: fit-content;
+    flex: 10;
+    margin: 10px;
+    overflow-x: hidden;
+    box-shadow: 2px 2px 10px rgb(121, 168, 182);
+    padding: auto;
+}
+
+.table-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-top button {
+    background-color: rgb(213, 229, 235);
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid rgb(1, 42, 48);
+    box-shadow: 0 0 2px rgb(1, 42, 48);
+    color: rgb(66, 66, 66);
+}
