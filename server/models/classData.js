@@ -7,7 +7,10 @@ const classSchema = mongoose.Schema({
         type : ObjectId,
         ref : "Teacher"
     },
-    
+    students : {
+        type : [ObjectId],
+        ref : "Student"
+    },
     classCode : String,
     className : String,
     classDesc : String,

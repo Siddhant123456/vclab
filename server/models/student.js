@@ -9,6 +9,7 @@ const studentSchema = mongoose.Schema({
     class  : String,
     schoolName : String,
     phoneNumber : String,
+    
 })
 
 export default mongoose.model("Student", studentSchema);

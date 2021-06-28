@@ -18,6 +18,7 @@ app.use(cors());
 app.use('/users',userRoutes)
 app.use('/newclass',postRoutes)
 
+app.use('/classes', postRoutes)
 const CONNECTION_URL = 'mongodb+srv://virtualab:virtualab123@cluster0.uajst.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 const PORT = process.env.PORT || 5000;

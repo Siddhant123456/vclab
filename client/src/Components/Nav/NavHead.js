@@ -57,7 +57,7 @@ function NavHead() {
         {userData ? (
           <>
           <Nav.Link>
-            Hello {userData.result.name}
+            <Link to = "/dashboard">Hello {userData.result.name}</Link>
           </Nav.Link>
           
           <Nav.Link onClick = {logoutHandler}>

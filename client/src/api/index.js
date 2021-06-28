@@ -9,3 +9,6 @@ export const signUp = (formData) => API.post('/users/signup',formData)
 
 export const newClass = (formData) => API.post('/newclass/class',formData)
 
+export const joinClass = (formData) => API.post('/newclass/join' , formData)
+
+export const fetchClasses = (id) => API.get(`/classes/${id}`);

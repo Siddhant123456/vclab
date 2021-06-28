@@ -1,11 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { useDispatch } from 'react-redux';
 import Room from './Components/Room/Room';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Auth from './Components/Auth/Auth';
 import NavHead from  './Components/Nav/NavHead';
 import {BrowserRouter , Switch , Route} from 'react-router-dom';
-
+import Dashboard from './Components/Dashboard/dashboard';
+import {classes} from './actions/classes';
+import Profile from './Components/Profile/Profile';
 function App() {
+  const dispatch = useDispatch();
+  const authInfo = useSelector((state) => state.authData);
+    
+ 
+  
+  useEffect(() => {
+    if(localStorage.getItem("profile")){
+      console.log("hello");
+      const id = JSON.parse(localStorage.getItem("profile")).result._id;
+      
+      dispatch(classes(id));
+    }
+    
+  },[dispatch,authInfo])
+
   return (
     <BrowserRouter>
     <div className="App">
@@ -14,6 +34,9 @@ function App() {
       <Switch>
           <Route path = "/" exact component = {Room}></Route>
           <Route path = "/auth" exact component = {Auth}></Route>
+          <Route path = "/dashboard" exact component = {Dashboard}></Route>
+          
+          <Route path = "/profile" exact component = {Profile}></Route>
         </Switch>
       
     </div>
