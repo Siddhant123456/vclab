@@ -3,29 +3,42 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import { useHistory } from "react-router-dom";
-import { Table, Container, Tab, Row, Col, ListGroup } from "react-bootstrap";
+import {
+  
+  Container,
+  Tab,
+  Row,
+  Col,
+  ListGroup,
+  Card,
+  CardColumns
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { joinClass } from "../../actions/joinClass";
-import {createClass} from '../../actions/createclass';
-
-const Dashboard = () => {
+import { createClass } from "../../actions/createclass";
+import "./dashboard.css";
+const Dashboard = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const authData = useSelector((state) => state.authData);
+  const authData = JSON.parse(localStorage.getItem("profile"))?.result;
+  if (authData === undefined) {
+    props.history.push("/auth");
+  }
+
   const classInfo = useSelector((state) => state.classes);
   console.log(classInfo);
   const [modal, showModal] = useState(false);
 
   let initialState = {};
-
-  if (authData.length > 0 && authData.isStudent) {
+  if (authData?.isStudent) {
     initialState.code = "";
-  } else if (authData.length > 0 && authData.isTeacher) {
+    initialState.id = "";
+  } else if (authData?.isTeacher) {
     initialState.name = "";
     initialState.desc = "";
     initialState.duration = "";
     initialState.standard = "";
-    initialState.userInfo = ""
+    initialState.userInfo = "";
   }
   const [formData, setFormData] = useState(initialState);
 
@@ -40,16 +53,13 @@ const Dashboard = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if(formData.code === undefined){
-      
+    if (formData.code === undefined) {
       formData.userInfo = JSON.parse(localStorage.getItem("profile"));
-      dispatch(createClass(formData,history));
-    }
-    else{
-      
+      dispatch(createClass(formData, history));
+    } else {
+      formData.id = JSON.parse(localStorage.getItem("profile")).result._id;
       dispatch(joinClass(formData, history));
     }
-    
   };
 
   return (
@@ -58,57 +68,64 @@ const Dashboard = () => {
         <Row>
           <Col sm={4}>
             <ListGroup>
-              <Link to="/dashboard" exact>
-                <ListGroup.Item>Dashboard</ListGroup.Item>
-              </Link>
-              <Link to="/profile" exact>
-                <ListGroup.Item>Profile</ListGroup.Item>
-              </Link>
+              <ListGroup.Item
+                className="active"
+                action
+                onClick={() => document.getElementById("dashboard1").click()}
+              >
+                <Link to="/dashboard" exact style={{ color: "black" }}>
+                  <span id="dashboard1">Dashboard</span>
+                </Link>
+              </ListGroup.Item>
+              <ListGroup.Item
+                action
+                onClick={() => document.getElementById("profile1").click()}
+              >
+                <Link to="/profile" exact style={{ color: "black" }}>
+                  <span id="profile1">Profile</span>
+                </Link>
+              </ListGroup.Item>
             </ListGroup>
           </Col>
         </Row>
       </Tab.Container>
 
       <div className="classInfo">
-        <h3>
-          {authData.length > 0 && authData.isStudent ? "Student" : "Teacher"}{" "}
-          Class Information
-        </h3>
+        <h2>Hello {authData?.name}</h2>
+
         <Button color="secondary" variant="contained" onClick={handleJoin}>
-          {authData.length > 0 && authData.isStudent
-            ? "Join Class"
-            : "Create Class"}
+          {authData?.isStudent ? "Join Class" : "Create Class"}
         </Button>
         <br />
         <br />
-        <Table striped bordered hover variant="dark">
-          <thead>
-            <tr>
-              <th>Class Code</th>
-              <th>Class Name</th>
-              <th>Class Teacher</th>
-              <th>Number of Students</th>
-            </tr>
-          </thead>
-          <tbody>
-            {classInfo.length > 0 &&
-              classInfo.map((classData) => (
-                <tr>
-                  <td>{classData.classCode}</td>
-                  <td>{classData.className}</td>
-                  <td>{classData.teacher}</td>
-                  <td>0</td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
+        <h3>{authData?.isStudent ? "Enrolled Classes" : "Your Classes"} </h3>
+        <br />
+        <CardColumns>
+          
+        {classInfo.length > 0 &&
+          classInfo.map((item) => (
+            <Link to = {`/myclass/${item._id}`} exact>
+            <Card style={{ width: "14rem" , height : "10rem" , textAlign : 'center'}} bg = "dark" text = "white" className = "">
+              <Card.Body>
+                <Card.Title>{item.className}</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {item.classCode}
+                </Card.Subtitle>
+                <Card.Text>{item.classDesc}</Card.Text>
+              </Card.Body>
+            </Card>
+            </Link>
+          ))}
+          
+          </CardColumns>
+
         <Modal
           show={modal}
           onHide={() => {
             showModal((prevState) => !prevState);
           }}
         >
-          {authData.length > 0 && authData.isStudent ? (
+          {authData?.isStudent ? (
             <>
               <Modal.Header>
                 <Modal.Title>Enter Class Code</Modal.Title>

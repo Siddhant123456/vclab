@@ -19,8 +19,13 @@ const intialState = {
   Quiz: false,
 };
 
-function LabDrawer() {
+const LabDrawer = (props) => {
+  
+  
+  
   const [show, setShow] = useState(intialState);
+
+  
 
   const drawIcon = [
     {

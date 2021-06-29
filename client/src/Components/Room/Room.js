@@ -3,8 +3,12 @@ import Shelf from '../Shelf/Shelf';
 import Chemical from '../Chemical/Chemical';
 import './room.css';
 
-function Room() 
+function Room(props) 
 {
+    const authData = JSON.parse(localStorage.getItem("profile"))?.result;
+    if(authData === undefined){
+    props.history.push('/auth');
+    }
     return (
         <div>
             

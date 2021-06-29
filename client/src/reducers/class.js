@@ -5,7 +5,9 @@ export const classReducer = (state = {classes : null}, action) => {
             
             
         case 'UPDATE':
-            return [...state , action.payload]
+            console.log("hello");
+            console.log([...state , action.payload.result]);
+            return [...state , action.payload.result]
             
     
         default:

@@ -19,7 +19,7 @@ export const createClass = async (req, res) => {
   console.log(userInfo);
   const existingUser = await Teacher.findOne({ teacher: userInfo.result._id });
 
-  const result = await ClassData.create({
+  const allData = await ClassData.create({
     teacher: existingUser,
     classCode: classId,
     className: name,
@@ -27,7 +27,8 @@ export const createClass = async (req, res) => {
     classStandard: standard,
     classDuration: duration,
   });
-
+  const result = await ClassData.findOne({classCode : classId});
+  console.log(result);
   res.status(200).json({result});
 };
 
@@ -65,7 +66,7 @@ export const joinClass =  async (req,res) => {
       {classCode : code} ,
       { $push : {students : isStudent._id}}
     );
-    res.status(200).json({data : result});
+    res.status(200).json(result);
 
     
 
@@ -81,14 +82,16 @@ export const fetchClass = async (req,res) => {
   if(profile.isStudent){
     const studentProf = await Student.findOne({student : req.params.id});
 
-    const myData = await ClassData.find({students : studentProf._id});
-
-    return res.status(200).json(myData);
+    const result = await ClassData.find({students : studentProf._id});
+    console.log(result);
+   
+    return res.status(200).json(result);
   }
   else{
     const teacherProf = await Teacher.findOne({teacher : req.params.id});
-    const allClass = await ClassData.find({teacher : teacherProf._id});
-    return res.status(200).json(allClass);
+    const result = await ClassData.find({teacher : teacherProf._id});
+    console.log(result);
+    return res.status(200).json(result);
   }
 
     

@@ -10,6 +10,8 @@ import {BrowserRouter , Switch , Route} from 'react-router-dom';
 import Dashboard from './Components/Dashboard/dashboard';
 import {classes} from './actions/classes';
 import Profile from './Components/Profile/Profile';
+import Home from './Components/Home/Home';
+import ClassDetail from './Components/ClassDetail/classDetail';
 function App() {
   const dispatch = useDispatch();
   const authInfo = useSelector((state) => state.authData);
@@ -18,7 +20,6 @@ function App() {
   
   useEffect(() => {
     if(localStorage.getItem("profile")){
-      console.log("hello");
       const id = JSON.parse(localStorage.getItem("profile")).result._id;
       
       dispatch(classes(id));
@@ -32,11 +33,14 @@ function App() {
     <NavHead/>
 
       <Switch>
-          <Route path = "/" exact component = {Room}></Route>
+          <Route path = "/" exact component = {Home}></Route>
           <Route path = "/auth" exact component = {Auth}></Route>
           <Route path = "/dashboard" exact component = {Dashboard}></Route>
           
           <Route path = "/profile" exact component = {Profile}></Route>
+          <Route path = "/lab" exact component = {Room}></Route>
+          <Route path = "/myclass/:id" exact component = {ClassDetail}></Route>
+          
         </Switch>
       
     </div>

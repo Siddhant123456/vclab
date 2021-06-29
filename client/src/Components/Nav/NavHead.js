@@ -2,9 +2,8 @@ import React , {useState, useEffect } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "./icon.png";
 
 import "./nav.css";
@@ -32,7 +31,7 @@ function NavHead() {
   }
   return (
     <Navbar bg="dark" variant="dark" className="justify-content-between">
-      <Link to="/" exact>
+      <NavLink to="/" exact>
         <Navbar.Brand>
           <img
             src={logo}
@@ -43,41 +42,32 @@ function NavHead() {
           />
           <span className="brand">{"  "}Virtual Labs</span>
         </Navbar.Brand>
-      </Link>
+      </NavLink>
       <Nav>
         <Nav.Link>
-          <Link to="/" exact>
+          <NavLink to="/" exact activeClassName = "activeNav" style = {{color : 'silver',textDecoration : 'none'}}>
             Home
-          </Link>
+          </NavLink>
         </Nav.Link>
 
         <Nav.Link>
-          <Link to="/">Lab</Link>
+          <NavLink to="/lab" activeClassName = "activeNav" style = {{color : 'silver',textDecoration : 'none'}}>Lab</NavLink>
         </Nav.Link>
         {userData ? (
           <>
           <Nav.Link>
-            <Link to = "/dashboard">Hello {userData.result.name}</Link>
+            <NavLink to = "/dashboard" activeClassName = "activeNav" style = {{color : 'silver' ,textDecoration : 'none'}}>Dashboard</NavLink>
           </Nav.Link>
           
-          <Nav.Link onClick = {logoutHandler}>
+          <Nav.Link onClick = {logoutHandler} style = {{color : 'silver' , textDecoration : 'none'}}>
               Logout
             </Nav.Link>
             </>
         ) : (
-          <NavDropdown title="Sign-in" id="collasible-nav-dropdown">
-            <NavDropdown.Item>
-              <Link to="/auth" exact>
-                Student
-              </Link>
-            </NavDropdown.Item>
+          <Nav.Link>
+              <NavLink to = "/auth" activeClassName = "activeNav" style = {{color : 'silver',textDecoration : 'none'}}>SignIn/SignUp</NavLink>
 
-            <NavDropdown.Item>
-              <Link to="/auth" exact>
-                Faculty
-              </Link>
-            </NavDropdown.Item>
-          </NavDropdown>
+          </Nav.Link>
         )}
       </Nav>
     </Navbar>
