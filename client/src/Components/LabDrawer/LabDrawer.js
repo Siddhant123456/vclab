@@ -1,5 +1,6 @@
 import { ListItem, ListItemIcon } from "@material-ui/core";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Help,
   TouchApp,
@@ -10,6 +11,7 @@ import {
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "./labdrawer.css";
+import { notes } from "../../actions/notes";
 
 const intialState = {
   Aim: false,
@@ -20,13 +22,26 @@ const intialState = {
 };
 
 const LabDrawer = (props) => {
-  
-  
-  
+  const noteState = {
+    note: "",
+    id : JSON.parse(localStorage.getItem("profile"))?.result?._id
+  }
   const [show, setShow] = useState(intialState);
+  const [formData,setFormData] = useState(noteState)
+  const dispatch = useDispatch();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    
+    
+    dispatch(notes(formData));
+   
+  }
 
-  
-
+  const changeHandler = (e) => {
+    setFormData((prevState) => {
+      return {...prevState , [e.target.name] : e.target.value};
+    })
+  }
   const drawIcon = [
     {
       name: "Aim",
@@ -51,10 +66,12 @@ const LabDrawer = (props) => {
     {
       name: "Notes",
       icon: <BorderColor fontSize="large" />,
+      alertText: `Create A New Note`,
     },
     {
       name: "Quiz",
       icon: <Grade fontSize="large" />,
+      alertText :"Coming Soon",
     },
   ];
 
@@ -84,19 +101,44 @@ const LabDrawer = (props) => {
           <Modal.Header>
             <Modal.Title>{di.name}</Modal.Title>
           </Modal.Header>
-          <Modal.Body className ="new-line">{di.alertText}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                setShow((prevState) => {
-                  return { ...prevState, [di.name]: false };
-                });
-              }}
-            >
-              Close
-            </Button>
-          </Modal.Footer>
+          <form onSubmit = {submitHandler}>
+            <Modal.Body className="new-line">
+              <b>{di.alertText}</b>
+              <br/>
+              <br/>
+              {di.name === "Notes" && (
+                <textarea
+                  rows={3}
+                  name = "note"
+                  style={{ width: "100%" }}
+                  placeholder="Start Typing..."
+                  onChange = {changeHandler}
+                ></textarea>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button color="primary" type="submit" onClick = {() => {
+                     setShow((prevState) => {
+                      return {...prevState , [di.name]: false};
+                    })
+                }}>
+                Submit
+                
+              </Button>
+
+              <Button
+                variant="secondary"
+                id = "close"
+                onClick={() => {
+                  setShow((prevState) => {
+                    return { ...prevState, [di.name]: false };
+                  });
+                }}
+              >
+                Close
+              </Button>
+            </Modal.Footer>
+          </form>
         </Modal>
       </>
     );
@@ -107,6 +149,6 @@ const LabDrawer = (props) => {
       <div className="d-container">{drawItem}</div>
     </>
   );
-}
+};
 
 export default LabDrawer;

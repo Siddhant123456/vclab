@@ -89,9 +89,7 @@ export const signup = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
   const { id, name, email, age, schoolName, phoneNumber } = req.body;
-  console.log(id);
   const job = await User.findOne({ _id: id });
-  console.log(job);
   if (job.isStudent) {
     const { standard } = req.body;
     const updatedData = await Student.findOneAndUpdate(

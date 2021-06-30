@@ -30,7 +30,7 @@ function NavHead() {
     
   }
   return (
-    <Navbar bg="dark" variant="dark" className="justify-content-between">
+    <Navbar bg="dark" variant="dark" className="justify-content-between mynav">
       <NavLink to="/" exact>
         <Navbar.Brand>
           <img

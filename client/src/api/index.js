@@ -15,3 +15,9 @@ export const fetchClasses = (id) => API.get(`/classes/${id}`);
 
 
 export const updateProfile = (formData) => API.post('/profile' , formData);
+
+export const createNote = (formData) => API.post('/notes/create',formData)
+
+export const fetchNotes = (id) => API.get(`/notes/fetch/${id}`);
+
+export const deleteNote = (id) => API.get(`/notes/remove/${id}`);

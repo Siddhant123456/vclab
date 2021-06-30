@@ -1,6 +1,14 @@
 .classInfo{
     text-align: center;
 }
+
+@media only screen and (max-width: 574px) {
+    .main-data {
+      width : 100% !important;
+      color:white !important
+    }
+    
+  }
 /* 
 .active{
     background-color:rgb(19, 119, 126) !important;

@@ -81,14 +81,12 @@ export const fetchClass = async (req,res) => {
     const studentProf = await Student.findOne({student : req.params.id});
 
     const result = await ClassData.find({students : studentProf._id});
-    console.log(result);
-   
+    
     return res.status(200).json(result);
   }
   else{
     const teacherProf = await Teacher.findOne({teacher : req.params.id});
     const result = await ClassData.find({teacher : teacherProf._id});
-    console.log(result);
     return res.status(200).json(result);
   }
 

@@ -6,6 +6,8 @@ import userRoutes from './routes/users.js'
 
 import postRoutes from './routes/posts.js'
 
+import notesRoutes from './routes/notes.js';
+
 
 const app = express();
 
@@ -20,6 +22,7 @@ app.use('/newclass',postRoutes)
 
 app.use('/classes', postRoutes)
 app.use('/profile',userRoutes);
+app.use('/notes', notesRoutes);
 const CONNECTION_URL = 'mongodb+srv://virtualab:virtualab123@cluster0.uajst.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 const PORT = process.env.PORT || 5000;

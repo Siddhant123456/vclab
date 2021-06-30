@@ -9,6 +9,7 @@ import NavHead from  './Components/Nav/NavHead';
 import {BrowserRouter , Switch , Route} from 'react-router-dom';
 import Dashboard from './Components/Dashboard/dashboard';
 import {classes} from './actions/classes';
+import { fetchNotes } from './actions/notes';
 import Profile from './Components/Profile/Profile';
 import Home from './Components/Home/Home';
 import ClassDetail from './Components/ClassDetail/classDetail';
@@ -29,6 +30,7 @@ function App() {
       const id = JSON.parse(localStorage.getItem("profile")).result._id;
       
       dispatch(classes(id));
+      dispatch(fetchNotes(id));
     }
     
   },[dispatch,authInfo])

@@ -13,8 +13,6 @@ import { Avatar, Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
-
 import "./profile.css";
 import { updateProfile } from "../../actions/profile";
 const useStyles = makeStyles((theme) => ({
@@ -37,16 +35,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Profile = (props) => {
+
+  
   const authData1 = JSON.parse(localStorage.getItem("profile"))?.result;
   if (authData1 === undefined) {
     props.history.push("/auth");
   }
   const dispatch = useDispatch();
-  const [loader, setLoader] = useState(false);
   const classes = useStyles();
   const authData = useSelector((state) => state.authData);
   const profile = useSelector((state) => state.userProfile);
-  console.log(profile.userProfile?.age);
   let initialState = {};
   initialState.id = "";
   initialState.name = authData.authData?.result?.name;
@@ -54,6 +52,7 @@ const Profile = (props) => {
   initialState.age = profile.userProfile?.age;
   initialState.schoolName = profile.userProfile?.schoolName;
   initialState.phoneNumber = profile.userProfile?.phoneNumber;
+  
   if (authData.authData?.result?.isStudent) {
     initialState.standard = profile.userProfile?.standard;
   } else if (authData.authData?.result?.isTeacher) {
@@ -61,8 +60,8 @@ const Profile = (props) => {
     initialState.qualifications = profile.userProfile?.qualifications;
   }
   const [formData, setFormData] = useState(initialState);
-  console.log(formData);
-
+  
+  
   const handleChange = (e) => {
     setFormData((prevState) => {
       return { ...prevState, [e.target.name]: e.target.value };
@@ -79,11 +78,7 @@ const Profile = (props) => {
   return (
     <Container>
       <br />
-      {loader && (
-        <div className={classes.root2}>
-          <LinearProgress />
-        </div>
-      )}
+      
       <div className="tab-container">
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
           <Row>
@@ -118,6 +113,7 @@ const Profile = (props) => {
         </Avatar>
         <br />
         <h4>{authData.authData?.result?.name}</h4>
+        
       </div>
       <br />
       <div className={`mt-4 ${classes.root}`}>
