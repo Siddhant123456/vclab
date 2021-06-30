@@ -9,7 +9,6 @@ export const joinClass = (formData, history) => async (dispatch) =>{
         dispatch({type : 'UPDATE', payload : {result :data}})
 
     } catch (error) {
-        alert("An error occured due to wrong information provided by you!!")
         console.log(error);
     }
 }

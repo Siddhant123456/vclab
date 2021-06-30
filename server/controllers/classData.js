@@ -16,7 +16,6 @@ function generateUID() {
 export const createClass = async (req, res) => {
   const classId = generateUID();
   const { name, desc, standard, duration, userInfo } = req.body;
-  console.log(userInfo);
   const existingUser = await Teacher.findOne({ teacher: userInfo.result._id });
 
   const allData = await ClassData.create({
@@ -28,7 +27,6 @@ export const createClass = async (req, res) => {
     classDuration: duration,
   });
   const result = await ClassData.findOne({classCode : classId});
-  console.log(result);
   res.status(200).json({result});
 };
 

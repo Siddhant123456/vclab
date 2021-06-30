@@ -16,7 +16,13 @@ function App() {
   const dispatch = useDispatch();
   const authInfo = useSelector((state) => state.authData);
     
- 
+  useEffect(() => {
+    if(localStorage.getItem("profile")){
+      dispatch({type : 'AUTH' , payload : JSON.parse(localStorage.getItem("profile"))})
+      dispatch({type : 'UPDATE_JOB' , payload : JSON.parse(localStorage.getItem("user"))});
+        
+    }
+  },[dispatch])
   
   useEffect(() => {
     if(localStorage.getItem("profile")){

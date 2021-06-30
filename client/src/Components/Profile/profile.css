@@ -1,0 +1,10 @@
+.avatar{
+    float : left;
+    margin-right: 12rem;
+}
+
+.tab-container{
+    float:right;
+    margin-right: 2rem;
+    margin-top:  3rem;
+}

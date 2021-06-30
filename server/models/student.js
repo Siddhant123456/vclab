@@ -6,7 +6,7 @@ const studentSchema = mongoose.Schema({
 
     student : {type : ObjectId , ref : 'User'},
     age : { type : Number},
-    class  : String,
+    standard  : String,
     schoolName : String,
     phoneNumber : String,
     

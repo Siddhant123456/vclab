@@ -49,10 +49,11 @@ function NavHead() {
             Home
           </NavLink>
         </Nav.Link>
-
+        {userData &&
         <Nav.Link>
           <NavLink to="/lab" activeClassName = "activeNav" style = {{color : 'silver',textDecoration : 'none'}}>Lab</NavLink>
         </Nav.Link>
+        }
         {userData ? (
           <>
           <Nav.Link>

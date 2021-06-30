@@ -64,13 +64,15 @@ const Dashboard = (props) => {
 
   return (
     <Container>
+      <div className = "tab-container">
       <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
         <Row>
-          <Col sm={4}>
+          <Col sm={12}>
             <ListGroup>
               <ListGroup.Item
-                className="active"
                 action
+                className="active"
+                
                 onClick={() => document.getElementById("dashboard1").click()}
               >
                 <Link to="/dashboard" exact style={{ color: "black" }}>
@@ -89,7 +91,8 @@ const Dashboard = (props) => {
           </Col>
         </Row>
       </Tab.Container>
-
+      </div>
+      
       <div className="classInfo">
         <h2>Hello {authData?.name}</h2>
 
@@ -104,8 +107,8 @@ const Dashboard = (props) => {
           
         {classInfo.length > 0 &&
           classInfo.map((item) => (
-            <Link to = {`/myclass/${item._id}`} exact>
-            <Card style={{ width: "14rem" , height : "10rem" , textAlign : 'center'}} bg = "dark" text = "white" className = "">
+            <Link to = {`/myclass/${item._id}`} exact key = {item._id}>
+            <Card style={{ width: "14rem" , height : "10rem" , textAlign : 'center'}} bg = "dark" text = "white" className = "" >
               <Card.Body>
                 <Card.Title>{item.className}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">

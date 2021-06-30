@@ -24,6 +24,12 @@ export const authReducer = (state = {authData : null},action) =>{
             localStorage.clear()
             
             return { ...state ,authData : null};
+
+        case 'UPDATE_PROFILE':
+            localStorage.setItem('profile' ,JSON.stringify( {...action?.payload}))
+            
+            return { ...state ,authData : action?.payload};
+
             
         default:
             
