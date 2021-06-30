@@ -153,13 +153,14 @@ const Dashboard = (props) => {
             <h3>My Notes</h3>
           
           }
+          <br/>
           <Row>
 
             {allNotes?.length > 0 &&
               allNotes.map((item,index) => {
                 return (
-                  <>
-                  <Toast className = "ml-4" onClose = {() => {
+                  
+                  <Toast className = "ml-4" style = {{marginBottom : '1rem'}} onClose = {() => {
                     const id = item._id;
                     dispatch(deleteNote(id));
                   }}>
@@ -169,10 +170,10 @@ const Dashboard = (props) => {
                         <small>{item.createdAt}</small>
                       </Toast.Header>
                       <Toast.Body>
-                        <b>{item.note}</b>
+                        {item.note}
                       </Toast.Body>
                     </Toast>
-                  </>
+                  
                 );
               })}
           

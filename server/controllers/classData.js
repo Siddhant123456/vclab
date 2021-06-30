@@ -80,7 +80,9 @@ export const fetchClass = async (req,res) => {
   if(profile.isStudent){
     const studentProf = await Student.findOne({student : req.params.id});
 
-    const result = await ClassData.find({students : studentProf._id});
+     
+    const result = await ClassData.find({students : { $in : [studentProf._id]}});
+    console.log(result)
     
     return res.status(200).json(result);
   }
@@ -91,4 +93,24 @@ export const fetchClass = async (req,res) => {
   }
 
     
+}
+
+
+export const leaveClass = async (req,res) => {
+  const {id,user} = req.params;
+  
+  const student = await Student.findOne({student : user});
+  const removeStudentFromArray = await ClassData.updateOne(
+    {_id : id},
+    {$pull : {students : student._id}}
+  )
+  console.log(removeStudentFromArray);
+  const studentClass = await StudentClass.findOne({student : student._id , classInfo :id});
+  
+  const removeStudentRow = await StudentClass.deleteOne(
+    {_id : studentClass._id}
+  )
+  res.status(200).json({removeStudentRow});
+
+
 }
