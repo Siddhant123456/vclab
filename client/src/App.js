@@ -30,7 +30,10 @@ function App() {
       const id = JSON.parse(localStorage.getItem("profile")).result._id;
       
       dispatch(classes(id));
-      dispatch(fetchNotes(id));
+      if(JSON.parse(localStorage.getItem("profile")).result.isStudent){
+        dispatch(fetchNotes(id));
+      }
+      
     }
     
   },[dispatch,authInfo])

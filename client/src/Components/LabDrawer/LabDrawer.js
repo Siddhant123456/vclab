@@ -103,7 +103,7 @@ const LabDrawer = (props) => {
           </Modal.Header>
           <form onSubmit = {submitHandler}>
             <Modal.Body className="new-line">
-              <b>{di.alertText}</b>
+              {di.alertText}
               <br/>
               <br/>
               {di.name === "Notes" && (

@@ -108,8 +108,8 @@ const Profile = (props) => {
       </div>
 
       <div className="avatar mt-5">
-        <Avatar style={{ height: "8rem", width: "8rem" }}>
-          {authData.authData?.result?.name[0]}
+        <Avatar style={{ height: "8rem", width: "8rem" ,backgroundColor : '#23C4ED' }} className={classes.orange}>
+          <h1>{authData.authData?.result?.name[0]}</h1>
         </Avatar>
         <br />
         <h4>{authData.authData?.result?.name}</h4>
@@ -145,6 +145,7 @@ const Profile = (props) => {
                   onChange={handleChange}
                   name="email"
                   required
+                  disabled
                 />
               </Col>
             </Row>

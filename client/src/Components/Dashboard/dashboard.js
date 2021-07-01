@@ -133,20 +133,23 @@ const Dashboard = (props) => {
                   }}
                   bg="dark"
                   text="white"
-                  className=""
+                  className="mr-5"
                 >
                   <Card.Body>
                     <Card.Title>{item.className}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                      {item.classCode}
+                      {item.classCode} 
                     </Card.Subtitle>
                     <Card.Text>{item.classDesc}</Card.Text>
+                      
+                    
                   </Card.Body>
                 </Card>
               </Link>
             ))}
             
         </CardColumns>
+        
           <br />
           <br />
           {allNotes?.length > 0 &&
