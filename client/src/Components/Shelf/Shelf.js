@@ -1,8 +1,9 @@
+import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import CardDeck from 'react-bootstrap/CardDeck';
 import "./shelfStyle.css";
 
-function Shelf() {
+function Shelf(props) {
 
     const apparatus = [
         {
@@ -35,11 +36,19 @@ function Shelf() {
         }
     ];
 
-    const shelf_item_a = apparatus.map((appr) => {
+    const [appSelected, setAppSelected] = useState(' ');
+
+    const shelf_item_a = apparatus.map((appr, index) => {
+        const alabel = appr.label;
         return (
             <Card className="shelf-item">
                 <Card.Img variant="top" src={appr.photo} className="app-img"/>
-                <button className="label-button"><p>{appr.label}</p></button>
+                <button className="label-button" onClick = {
+                    () => {
+                        setAppSelected(alabel)
+                        props.getApparatus(appSelected);
+                    }
+                }><p>{appr.label}</p></button>
             </Card>
         )
     });

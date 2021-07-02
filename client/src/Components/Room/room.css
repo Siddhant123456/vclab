@@ -27,6 +27,8 @@
 }
 
 .table-top button {
+    display: block;
+    margin: 5px;
     background-color: rgb(213, 229, 235);
     font-weight: bold;
     padding: 5px;

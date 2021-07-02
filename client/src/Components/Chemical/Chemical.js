@@ -1,49 +1,80 @@
+import { useState } from "react";
 import Card from "react-bootstrap/Card";
 import CardDeck from 'react-bootstrap/CardDeck';
 import "./chemicalStyle.css";
 
-function Chemical() {
+function Chemical(props) {
 
     const chemicals = [
         {
             label: 'Copper Sulphate',
-            photo: 'Assets/copper_sulphate.jpg'
+            photo: 'Assets/copper_sulphate.jpg', 
+            element: 'Cu'
         },
         {
             label: 'Zinc Sulphate',
-            photo: 'Assets/zinc_sulphate.jpg'
+            photo: 'Assets/zinc_sulphate.jpg',
+            element: 'Zn'
         },
         {
             label: 'Iron Sulphate',
-            photo: 'Assets/iron_sulphate.jpg'
+            photo: 'Assets/iron_sulphate.jpg',
+            element: 'Fe'
         },
         {
             label: 'Aluminium Sulphate',
-            photo: 'Assets/aluminium_sulphate.jpg'
+            photo: 'Assets/aluminium_sulphate.jpg',
+            element: 'Al'
         },  
         {
             label: 'Copper Metal',
-            photo: 'Assets/copper_nails.jpg'
+            photo: 'Assets/copper_nails.jpg',
+            element: 'Cu'
         },
         {
             label: 'Zinc Metal',
-            photo: 'Assets/zinc_strips.png'
+            photo: 'Assets/zinc_strips.png',
+            element: 'Zn'
         },
         {
             label: 'Iron Metal',
-            photo: 'Assets/iron_nails.jpg'
+            photo: 'Assets/iron_nails.jpg',
+            element: 'Fe'
         },
         {
             label: 'Aluminium Metal',
-            photo: 'Assets/aluminium_nails.jpg'
+            photo: 'Assets/aluminium_nails.jpg',
+            element: 'Al'
         }
     ];
 
-    const chem_item = chemicals.map((appr) => {
+    const [chemSelected, setChemSelected] = useState({
+        solution: ' ',
+        metal: ' '
+    });
+
+    const chem_item = chemicals.map((appr, index) => {
         return (
             <Card className="shelf-item">
                 <Card.Img variant="top" src={appr.photo} className="app-img"/>
-                <button className="label-button"><p>{appr.label}</p></button>
+                <button className="label-button" onClick={
+                    () => {
+                        if(chemSelected.solution===' ')
+                            setChemSelected(
+                                (prevState) => {
+                                    return {...prevState, solution: appr.element};
+                                }
+                            )
+                        else
+                            setChemSelected(
+                                (prevState) => {
+                                    return {...prevState, metal: appr.element};
+                                }
+                            ) 
+                        
+                        props.getChemicals(chemSelected);
+                    }
+                }><p>{appr.label}</p></button>
             </Card>
         )
     });
