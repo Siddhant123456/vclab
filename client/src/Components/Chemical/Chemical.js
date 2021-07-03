@@ -9,42 +9,50 @@ function Chemical(props) {
         {
             label: 'Copper Sulphate',
             photo: 'Assets/copper_sulphate.jpg', 
-            element: 'Cu'
+            element: 'Cu',
+            matter: 'solution'
         },
         {
             label: 'Zinc Sulphate',
             photo: 'Assets/zinc_sulphate.jpg',
-            element: 'Zn'
+            element: 'Zn',
+            matter: 'solution'
         },
         {
             label: 'Iron Sulphate',
             photo: 'Assets/iron_sulphate.jpg',
-            element: 'Fe'
+            element: 'Fe',
+            matter: 'solution'
         },
         {
             label: 'Aluminium Sulphate',
             photo: 'Assets/aluminium_sulphate.jpg',
-            element: 'Al'
+            element: 'Al',
+            matter: 'solution'
         },  
         {
             label: 'Copper Metal',
             photo: 'Assets/copper_nails.jpg',
-            element: 'Cu'
+            element: 'Cu',
+            matter: 'metal'
         },
         {
             label: 'Zinc Metal',
             photo: 'Assets/zinc_strips.png',
-            element: 'Zn'
+            element: 'Zn',
+            matter: 'metal'
         },
         {
             label: 'Iron Metal',
             photo: 'Assets/iron_nails.jpg',
-            element: 'Fe'
+            element: 'Fe',
+            matter: 'metal'
         },
         {
             label: 'Aluminium Metal',
             photo: 'Assets/aluminium_nails.jpg',
-            element: 'Al'
+            element: 'Al',
+            matter: 'metal'
         }
     ];
 
@@ -59,20 +67,27 @@ function Chemical(props) {
                 <Card.Img variant="top" src={appr.photo} className="app-img"/>
                 <button className="label-button" onClick={
                     () => {
-                        if(chemSelected.solution===' ')
+                       // if(chemSelected.solutionution===' ')
                             setChemSelected(
                                 (prevState) => {
-                                    return {...prevState, solution: appr.element};
+                                    return {...prevState, [appr.matter]: appr.element};
                                 }
                             )
-                        else
+                        /*else
                             setChemSelected(
                                 (prevState) => {
                                     return {...prevState, metal: appr.element};
                                 }
-                            ) 
-                        
-                        props.getChemicals(chemSelected);
+                            ) */
+                        let obj = {
+                            solution: '',
+                            metal: ''
+                        };    
+                        if(appr.matter==='metal')
+                            obj.metal = appr.element;
+                        else 
+                            obj.solution = appr.element;                            
+                        props.getChemicals(obj);
                     }
                 }><p>{appr.label}</p></button>
             </Card>

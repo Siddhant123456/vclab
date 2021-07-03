@@ -45,8 +45,14 @@ function Shelf(props) {
                 <Card.Img variant="top" src={appr.photo} className="app-img"/>
                 <button className="label-button" onClick = {
                     () => {
-                        setAppSelected(alabel)
-                        props.getApparatus(appSelected);
+                        
+                        setAppSelected(
+                            () => {
+                                return appr.label;
+                            }
+                        );
+                        console.log(appSelected);
+                        props.getApparatus(appr.label);
                     }
                 }><p>{appr.label}</p></button>
             </Card>
